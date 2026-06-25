@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en-gb">
+<meta charset="utf-8">
+<title>Tavla</title>
+<link rel="stylesheet" href="default.css">
+<script type="module" src="main.js"></script>
+
+<header>
+    <h1>Tavla <span id="header-subtitle">by Arda Kancal</span></h1>
+    <div id="turn-indicator" aria-live="polite"></div>
+    <div id="match-score" hidden aria-label="Match score" aria-live="polite"></div>
+    <div id="header-buttons">
+        <button type="button" id="btn-new-game" aria-label="New game">New Game</button>
+        <button type="button" id="btn-stats-header" aria-label="Show stats">Stats</button>
+        <button type="button" id="btn-about" aria-label="About">About</button>
+        <a href="../docs/" id="btn-api-docs" aria-label="API documentation">API Docs</a>
+    </div>
+</header>
+
+<main>
+    <aside id="sidebar-left">
+        <section id="player1-info" aria-label="Player 1 info">
+            <h2>Player 1</h2>
+            <div id="p1-dice" class="dice-area" aria-label="Player 1 dice" aria-live="polite"></div>
+        </section>
+    </aside>
+
+    <div id="board-container" aria-label="Backgammon board">
+        <div id="points-top-left" aria-label="Points 13 to 18"></div>
+        <div id="bar" aria-label="Bar">
+            <div id="bar-p2" class="bar-checkers" aria-label="Player 2 bar checkers"></div>
+            <div id="bar-p1" class="bar-checkers" aria-label="Player 1 bar checkers"></div>
+        </div>
+        <div id="points-top-right" aria-label="Points 19 to 24"></div>
+        <div id="points-bottom-left" aria-label="Points 12 to 7"></div>
+        <div id="points-bottom-right" aria-label="Points 6 to 1"></div>
+    </div>
+
+    <aside id="sidebar-right">
+        <section id="player2-info" aria-label="Player 2 info">
+            <h2>Player 2</h2>
+            <div id="p2-dice" class="dice-area" aria-label="Player 2 dice" aria-live="polite"></div>
+        </section>
+        <div id="borne-off-area" aria-label="Borne off checkers">
+            <p class="borne-off-heading">Player 2 — Collect borne off checkers here</p>
+            <div id="borne-off-p2" aria-label="Player 2 borne off"></div>
+            <p class="borne-off-heading">Player 1 — Collect borne off checkers here</p>
+            <div id="borne-off-p1" aria-label="Player 1 borne off"></div>
+        </div>
+    </aside>
+</main>
+
+<dialog id="settings-dialog" aria-modal="true" aria-label="Game settings">
+    <h2>Game Settings</h2>
+    <div class="setting-row">
+        <span class="setting-label">Player 1 colour</span>
+        <div class="toggle-group" role="group" aria-label="Player 1 colour">
+            <button type="button" id="set-p1-white" class="toggle active" aria-pressed="true">White</button>
+            <button type="button" id="set-p1-black" class="toggle" aria-pressed="false">Black</button>
+        </div>
+    </div>
+    <div class="setting-row">
+        <span class="setting-label">Show legal moves</span>
+        <div class="toggle-group" role="group" aria-label="Show legal moves">
+            <button type="button" id="set-legal-yes" class="toggle active" aria-pressed="true">Yes</button>
+            <button type="button" id="set-legal-no" class="toggle" aria-pressed="false">No</button>
+        </div>
+    </div>
+    <div class="setting-row">
+        <span class="setting-label">Auto-roll dice</span>
+        <div class="toggle-group" role="group" aria-label="Auto-roll dice">
+            <button type="button" id="set-autoroll-yes" class="toggle active" aria-pressed="true">Yes</button>
+            <button type="button" id="set-autoroll-no" class="toggle" aria-pressed="false">No</button>
+        </div>
+    </div>
+    <div class="setting-row">
+        <span class="setting-label">Match length</span>
+        <div class="toggle-group" role="group" aria-label="Match length">
+            <button type="button" id="set-match-1" class="toggle active" aria-pressed="true">Single</button>
+            <button type="button" id="set-match-3" class="toggle" aria-pressed="false">First to 3</button>
+            <button type="button" id="set-match-5" class="toggle" aria-pressed="false">First to 5</button>
+        </div>
+    </div>
+    <button id="btn-start-game" aria-label="Start game">Start Game</button>
+</dialog>
+
+<dialog id="game-over-dialog" aria-modal="true" aria-label="Game over">
+    <h2>Game Over</h2>
+    <p id="dialog-message"></p>
+    <button id="dialog-new-game" aria-label="Play again">Play Again</button>
+</dialog>
+
+<dialog id="stats-dialog" aria-modal="true" aria-label="Game statistics">
+    <h2>Stats</h2>
+    <table id="stats-table">
+        <tr><th></th><th>Player 1</th><th>Player 2</th></tr>
+        <tr><td>Borne off</td><td id="stat-p1-off">0</td><td id="stat-p2-off">0</td></tr>
+        <tr><td>On bar</td><td id="stat-p1-bar">0</td><td id="stat-p2-bar">0</td></tr>
+    </table>
+    <button id="btn-close-stats" aria-label="Close stats">Close</button>
+</dialog>
+
+<dialog id="about-dialog" aria-modal="true" aria-label="About Tavla">
+    <h2>About</h2>
+    <p>Backgammon is a two-player board game. For instructions on how to play, please check: <a href="https://usbgf.org/backgammon-basics-how-to-play/" target="_blank" rel="noopener noreferrer">https://usbgf.org/backgammon-basics-how-to-play/</a>
+    It is important to note that Tavla doesn't have all aspects explained in the above link, such as game stakes and the doubling cube, as they aren't present in the Turkish way of playing the game. You can find more information about its history, significance in Turkey, and, for me personally, below.</p>
+    <p>Backgammon is a game that dates back to 3000 BC. It has been handed down through many cultures, empires, and societies. The game became popular with the rulers of ancient kingdoms in Greece, Rome, Persia, and Asia. There are even depictions of backgammon in frescoes from Pompeii dated to 79 AD.</p>
+    <p>As you might have noticed, I didn't name my game backgammon; I named it Tavla. Tavla is the Turkish word for backgammon; it holds a much more significant role both for my culture and for me personally. Tavla has very strong ties to the Turkish culture, becoming the symbol of what a man is, especially in more rural parts of Turkey. It is so integrated into the culture that a gender role analysis can be conducted through Tavla in Turkey.</p>
+    <p>I was taught 'Kiz Tavlasi', which translates to Girl's Backgammon, a simplified version of backgammon, which obviously again has sexist ideas behind it, by my grandfather, as I found it hard to understand the game as a kid. My grandfather played it every single time I went to visit him, and he would make me bet so that the loser would get a kilo of baklava for the winner. After eating many, many kilos of baklava over the years, I only understood that he lost on purpose every time. That is why I wanted to do Tavla as my game.</p>
+    <button id="btn-close-about" aria-label="Close about">Close</button>
+</dialog>
